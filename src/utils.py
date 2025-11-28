@@ -32,7 +32,8 @@ def parse_data(all_reports: list[dict]) -> dict:
         if "data" in report.keys():
             pretty_data[report["year"]] = report["data"]
         else:
-            pretty_data[report["year"]] = report["error"]
+            # Si no hay datos, report["error"] mejor no lo guardo
+            continue
 
     return pretty_data
 
@@ -42,6 +43,17 @@ def save_data(file_path: str, report: dict):
     with open(file_path, "w", encoding="utf-8") as f:
         try:
             json.dump(report, f, indent=4, ensure_ascii=False)
+        except PermissionError:
+            print(f"\nError: Permiso denegado para escribir en '{file_path}'.\n")
+        except Exception as e:
+            print(f"\nError de Sistema/IO al escribir en '{file_path}': {e}\n")
+
+
+def save_tesis(file_path: str, tesis: str):
+
+    with open(file_path, "w", encoding="utf-8") as f:
+        try:
+            f.write(tesis)
         except PermissionError:
             print(f"\nError: Permiso denegado para escribir en '{file_path}'.\n")
         except Exception as e:
