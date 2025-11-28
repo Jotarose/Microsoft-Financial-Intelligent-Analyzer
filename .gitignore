@@ -12,3 +12,6 @@ __pycache*
 
 # Ignoro downloads
 downloads/
+
+## Ignoro archivos de tests
+irrelevant_path.json
