@@ -1,9 +1,15 @@
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from dotenv import load_dotenv
+
 from src.client import MicrosoftIRClient
-from src.utils import handle_file_path, parse_data, save_data
+from src.gemini_ai import GeminiAIError, generate_financial_tesis
+from src.utils import handle_file_path, parse_data, save_data, save_tesis
+from src.visualization import generate_tables
 from src.worker import extract_financial_data
+
+load_dotenv()  # Carga las variables de entorno desde el archivo .env
 
 
 def main():
@@ -37,9 +43,21 @@ def main():
     except Exception as e:
         print(f"ERROR: {e}")
 
-    file_path = handle_file_path("all_ms_financial_data.json")
+    data_file_path = handle_file_path("all_ms_financial_data.json")
     clean_data = parse_data(all_pretty_financial_data)
-    save_data(file_path, clean_data)
+    save_data(data_file_path, clean_data)
+
+    try:
+        financial_tesis = generate_financial_tesis(clean_data)
+        tesis_file_path = handle_file_path("financial_tesis.md")
+        save_tesis(tesis_file_path, financial_tesis)
+        print(financial_tesis)
+
+    except GeminiAIError as gaie:
+        print(f"Error al generar la visualización con Gemini AI: {gaie}")
+
+    # Plot visualizations (Data Tables)
+    generate_tables(clean_data)
 
     end_time = time.time()
     print(f"\nTiempo total del programa {end_time - start_time:.2f}")
