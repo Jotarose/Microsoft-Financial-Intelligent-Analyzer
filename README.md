@@ -1,4 +1,4 @@
-# web-scrapper
+# Microsoft Investor Scrapper
 
 Proyecto en Python para extraer y estructurar los datos financieros publicados en los informes anuales de Microsoft (Investor Relations).
 
