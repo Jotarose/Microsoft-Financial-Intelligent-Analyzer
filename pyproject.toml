@@ -3,15 +3,13 @@
 # ===============================================
 # 1. METADATOS DEL PROYECTO (PEP 621)
 # ===============================================
-# Esta sección le dice a herramientas como pip quién eres
-# y qué versión de Python usas.
 
 [project]
-name = "web-scrapper"
+name = "microsoft-invest-scrapper"
 version = "0.1.0"
-description = "Una breve descripción de lo que hace este proyecto."
-readme = "README.md"  # Opcional, si tienes un README, guardarlo en UTF-8
-requires-python = ">=3.10" # Especifica la versión mínima de Python
+description = "Helps you downloading MS Annual Reports and cleaning some financial data"
+readme = "README.md"
+requires-python = ">=3.10"
 
 authors = [
   { name = "Juan Arabaolaza", email = "juan.arabaolaza@gmail.com" },
@@ -22,21 +20,13 @@ authors = [
 # ===============================================
 
 # --- DEPENDENCIAS DE PRODUCCIÓN ---
-# Aquí van las librerías que tu app NECESITA para funcionar.
-# Sigue dentro de la seccion de [project]
-# (Reemplaza al requirements.txt)
 dependencies = [
-requests = ">=2.32.5"
-beautifulsoup4 = ">=4.14.2"
-lxml = ">=6.0.2"
-#fastapi = ">=0.100.0"
-#pydantic = ">=2.0.0"
-# pandas = "*"  # Descomenta o añade las que necesites
+"requests>=2.32.5",
+"beautifulsoup4>=4.14.2",
+"lxml>=6.0.2",
 ]
 
 # --- DEPENDENCIAS DE DESARROLLO ---
-# Aquí van las herramientas que TÚ usas para programar,
-# pero que la app no necesita en producción (como Ruff).
 [project.optional-dependencies]
 dev = [
     "ruff",    # Linter y formateador
